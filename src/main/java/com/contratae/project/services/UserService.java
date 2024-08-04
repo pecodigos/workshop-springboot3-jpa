@@ -2,6 +2,7 @@ package com.contratae.project.services;
 
 import com.contratae.project.entities.User;
 import com.contratae.project.repositories.UserRepository;
+import com.contratae.project.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class UserService {
 
     public User findById(Long id) {
         Optional<User> obj = repository.findById(id);
-        return obj.orElseThrow();
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public User insert(User obj) {
